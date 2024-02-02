@@ -29,13 +29,13 @@ def remove_chastisements(schoolkid):
 
 def create_commendation(schoolkid, subject):
     praise = random.choice(PRAISES)
-    try:
-        lesson = Lesson.objects.filter(year_of_study=schoolkid.year_of_study,
-                                       group_letter=schoolkid.group_letter, subject__title__contains=subject).first()
+    lesson = Lesson.objects.filter(year_of_study=schoolkid.year_of_study,
+                                   group_letter=schoolkid.group_letter, subject__title__contains=subject).first()
+    if lesson is not None:
         Commendation.objects.create(schoolkid=schoolkid, text=praise, created=lesson.date,
-                                    teacher=lesson.teacher, subject=lesson.subject)
-    except AttributeError:
-        print('Опечатка. Или предмета с таким названием нет в базе. Программа завершена.')
+                                        teacher=lesson.teacher, subject=lesson.subject)
+    else:
+        print('Опечатка или такого урока нет')
 
 
 def run(*args):
