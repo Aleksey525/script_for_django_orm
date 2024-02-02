@@ -3,8 +3,6 @@ from datacenter.models import Chastisement
 from datacenter.models import Mark
 from datacenter.models import Lesson
 from datacenter.models import Commendation
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.exceptions import MultipleObjectsReturned
 import random
 
 
@@ -15,9 +13,9 @@ def get_user_data(schoolkid):
     try:
         user_data = Schoolkid.objects.get(full_name__contains=schoolkid)
         return user_data
-    except ObjectDoesNotExist:
+    except Schoolkid.DoesNotExist:
         print('Опечатка. Или ученика с таким именем нет в базе. Программа завершена.')
-    except MultipleObjectsReturned:
+    except Schoolkid.MultipleObjectsReturned:
         print('Найдено несколько учеников с таким именем, уточните запрос. Программа завершена.')
 
 
